@@ -66,3 +66,31 @@ class Repositorio:
             atual = atual.pai
 
         return total
+
+
+# Executa os testes apenas quando o arquivo for iniciado diretamente.
+if __name__ == "__main__":
+
+    # Cria um repositorio utilizando nome e RA do aluno.
+    repositorio = Repositorio(
+        "tf-08",
+        "Matheus Aguero - 6326149"
+    )
+
+    # Testa o historico de um repositorio vazio.
+    repositorio.log()
+
+    # Simula tres commits com mensagens sobre o projeto.
+    repositorio.commitar("Inicia o projeto de orientacao a objetos")
+    repositorio.commitar("Implementa a estrutura de commits")
+    repositorio.commitar("Adiciona controle do historico")
+
+    # Exibe os commits do mais recente ao mais antigo.
+    repositorio.log()
+
+    # Apresenta a quantidade total de commits.
+    print(repositorio.total_de_commits())
+
+
+# EXECUCAO:
+# python3 commit.py
