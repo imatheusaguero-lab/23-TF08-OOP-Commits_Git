@@ -19,3 +19,50 @@ class Commit:
 
         # Pede ao commit anterior que apresente seu historico.
         self.pai.historico()
+
+
+class Repositorio:
+    # Inicializa o repositorio sem commits.
+    # Exemplo: head = None e contador = 0
+    def __init__(self, nome, autor):
+        self.nome = nome
+        self.autor = autor
+        self.head = None
+        self.contador = 0
+
+    # Cria um commit e atualiza o HEAD.
+    def commitar(self, mensagem):
+        # Gera um novo identificador sequencial.
+        # Exemplo: 0 -> 1 -> 2 -> 3
+        self.contador += 1
+
+        # O HEAD antigo passa a ser o pai do novo commit.
+        novo_commit = Commit(
+            self.contador,
+            mensagem,
+            self.autor,
+            self.head
+        )
+
+        # O HEAD passa a apontar para o commit mais recente.
+        self.head = novo_commit
+
+    # Apresenta o historico do mais recente ao mais antigo.
+    def log(self):
+        if self.head is None:
+            print("Nenhum commit ainda")
+            return
+
+        self.head.historico()
+
+    # Conta os commits percorrendo as referencias dos pais.
+    def total_de_commits(self):
+        total = 0
+        atual = self.head
+
+        # Continua ate encontrar o commit sem pai.
+        while atual is not None:
+            total += 1
+            atual = atual.pai
+
+        return total
